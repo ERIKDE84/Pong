@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong</title>
+    <style>
+        body {
+            background-color: #000;
+        }
+        canvas {
+            background-color: grey;
+            border: white solid 10px;
+            border-radius: 15px;
+            display: block;
+            margin: 100px auto;
+        }
+        img {
+            display: none;
+        }
+        input {
+            display: block;
+            margin: 50px auto;
+            min-width: 300px;
+            width: 400px;
+            height: 70px;
+            background-color: black;
+            color: white;
+            font-size: 30px;
+            border: white solid 3px;
+            border-radius: 15px;
+            position: absolute;
+            left: 0px;
+            right: 0px;
+            top: 250px;
+        }
+        #P2 {
+            top: 350px;
+        }
+        input:hover {
+            color: black;
+            background-color: white;
+            cursor: pointer;
+            border: black solid 3px;
+        }
+    </style>
+</head>
+<body>
+    <img id="imgBall" src="assets/ball.png" alt="">
+    <input id="P1" type="submit" value="1 Player">
+    <input id="P2" type="submit" value="2 Player">
+    <canvas id="gameScreen" width="800px" height="600px"></canvas>
+
+    <script type="Module" src="src/index.js"></script>
+</body>
+</html>
