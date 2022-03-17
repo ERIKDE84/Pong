@@ -37,11 +37,12 @@ export default class InputHandler {
         })
 
         document.getElementById("P1").addEventListener("click", event => {
-            game.startPVE();
+            game.pvp = false;
+            game.start();
         });
 
         document.getElementById("P2").addEventListener("click", event => {
-            game.startPVP()
+            game.start();
         });
     }
 }

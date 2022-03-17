@@ -37,11 +37,11 @@ export default class Paddle {
 
     followBall(){
         if(this.position.y + this.height / 2 > this.game.ball.position.y + this.game.ball.size / 2){
-            this.speed = -this.maxSpeed / 2;
+            this.speed = -this.maxSpeed * 0.75;
         }
 
         if(this.position.y + this.height / 2 < this.game.ball.position.y + this.game.ball.size / 2){
-            this.speed = this.maxSpeed / 2;
+            this.speed = this.maxSpeed * 0.75;
         }
 
         this.position.y += this.speed;

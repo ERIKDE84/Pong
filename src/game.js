@@ -2,6 +2,7 @@ import Paddle from "./paddle.js";
 import Input from "./input.js";
 import Ball from "./ball.js";
 import Score from "./score.js";
+import {sleep} from "./sleep.js";
 
 const GAMESTATE = {
     MENU: 0,
@@ -11,13 +12,8 @@ const GAMESTATE = {
     WON_P2: 4
 };
 
-const MODE = {
-    PVP: 0,
-    PVE: 1
-};
-
 export default class Game {
-    constructor(gameWidth, gameHeight){
+    constructor(gameWidth, gameHeight, ctx){
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
         this.ball = new Ball(this);
@@ -26,9 +22,10 @@ export default class Game {
         new Input(this, this.paddle1, this.paddle2);
         this.score = new Score(this);
         this.gamestate = GAMESTATE.MENU;
-        this.mode = MODE.PVP;
+        this.pvp = true;
         this.scoreP1 = 0;
         this.scoreP2 = 0;
+        this.ctx = ctx;
     }
 
     update(){
@@ -46,7 +43,7 @@ export default class Game {
             return;
         }
 
-        if(this.mode === MODE.PVP){
+        if(this.pvp === true){
             this.paddle2.update();
         } else {
             this.paddle2.followBall();
@@ -101,10 +98,10 @@ export default class Game {
             ctx.font = "30px Arial";
             ctx.fillStyle = "white";
             ctx.textAlign = "center";
-            if(this.mode === MODE.PVP){
+            if(this.pvp === true){
                 ctx.fillText("PLAYER 1 WON!", this.gameWidth / 2, this.gameHeight / 2);
             }
-            if(this.mode === MODE.PVE){
+            if(this.pvp === false){
                 ctx.fillText("YOU'VE WON!", this.gameWidth / 2, this.gameHeight / 2);
             }
             return;
@@ -123,10 +120,10 @@ export default class Game {
             ctx.font = "30px Arial";
             ctx.fillStyle = "white";
             ctx.textAlign = "center";
-            if(this.mode === MODE.PVP){
+            if(this.pvp === true){
                 ctx.fillText("PLAYER 2 WON!", this.gameWidth / 2, this.gameHeight / 2);
             }
-            if(this.mode === MODE.PVE){
+            if(this.pvp === false){
                 ctx.fillText("YOU'VE LOST", this.gameWidth / 2, this.gameHeight / 2);
             }
             return;
@@ -140,29 +137,29 @@ export default class Game {
     }
 
     togglePause(){
-        if(this.gamestate == GAMESTATE.PAUSED){
+        if(this.gamestate === GAMESTATE.PAUSED){
             this.gamestate = GAMESTATE.RUNNING;
-        } else {
+        } else if(this.gamestate === GAMESTATE.RUNNING){
             this.gamestate = GAMESTATE.PAUSED;
         }
     }
 
-    startPVP(){
+    start(){
         if(this.gamestate !== GAMESTATE.MENU) return;
-        this.gamestate = GAMESTATE.RUNNING;
-        this.ball.reset();
-
         document.getElementById("P1").style.display = "none";
         document.getElementById("P2").style.display = "none";
-    }
-
-    startPVE(){
-        if(this.gamestate !== GAMESTATE.MENU) return;
+        
         this.gamestate = GAMESTATE.RUNNING;
-        this.mode = MODE.PVE;
+        
+        for(let i=3; i>0; i--){
+            this.ctx.font = "100px Arial";
+            this.ctx.fillStyle = "white";
+            this.ctx.textAlign = "center";
+            this.ctx.fillText(i, this.gameWidth / 2, this.gameHeight / 2);
+            console.log(i);
+            sleep(1000);
+        }
+       
         this.ball.reset();
-
-        document.getElementById("P1").style.display = "none";
-        document.getElementById("P2").style.display = "none";
     }
 }

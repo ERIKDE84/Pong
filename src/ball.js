@@ -31,6 +31,7 @@ export default class Ball {
         //collision detection between ball and paddle1
         if(detectCollision1(this, this.game.paddle1)){
             this.position.x = this.game.paddle1.position.x - this.size;
+            this.speed.totalSpeed++;
             deflection(this, this.game.paddle1);
             if(this.speed.x > 0) this.speed.x = -this.speed.x;
         }
@@ -38,6 +39,7 @@ export default class Ball {
         //collision detection between ball and paddle2
         if(detectCollision2(this, this.game.paddle2)){
             this.position.x = this.game.paddle2.position.x + this.size;
+            this.speed.totalSpeed++;
             deflection(this, this.game.paddle2);
             if(this.speed.x < 0) this.speed.x = -this.speed.x;
         }
